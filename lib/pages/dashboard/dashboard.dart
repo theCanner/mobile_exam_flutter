@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_exam/api/dashboard/dashboard.api.dart';
 import 'package:mobile_exam/components/custom_button.dart';
@@ -15,18 +16,33 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardPageStata extends State<DashboardPage> {
   final dashboard = Dashboard();
+  bool isLoading = true;
   List menuItems = [];
   bool isLoggingOut = false;
   Future<void> _loadItems() async {
     menuItems = await dashboard.getItems();
-    setState(() {
-      menuItems.add({
+    final allItems = [
+      ...menuItems,
+      {
         "name": "other",
         "history": "",
         "iconUrl": "",
         "imgUrl": "",
         "webUrl": "",
-      });
+      },
+    ];
+
+    await Future.wait(
+      allItems
+          .where((item) => item['iconUrl'] != null && item['iconUrl'] != '')
+          .map((item) {
+            return precacheImage(NetworkImage(item['iconUrl']), context);
+          }),
+    );
+
+    setState(() {
+      menuItems = allItems;
+      isLoading = false;
     });
   }
 
@@ -70,10 +86,7 @@ class DashboardPageStata extends State<DashboardPage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: SafeArea(
-          child: GestureDetector(
-            onTap: () => _openMenu(),
-            child: CustomHeader(user: user),
-          ),
+          child: CustomHeader(user: user, onTap: _openMenu),
         ),
       ),
       body: Column(
@@ -101,51 +114,56 @@ class DashboardPageStata extends State<DashboardPage> {
             ),
 
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(60),
-              itemCount: menuItems.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 50,
-                crossAxisSpacing: 50,
-                childAspectRatio: 1,
-              ),
-              itemBuilder: (context, index) {
-                final item = menuItems[index];
-                final isOther = item['name'] == 'other';
-                return Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(12),
-                    child: GestureDetector(
-                      onTap: () =>
-                          isOther ? _routeToOther(item) : _routeToSocial(item),
-                      child: isOther
-                          ? Container(
-                              width: 150,
-                              height: 150,
-                              color: Colors.amber[600],
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.logout,
-                                    color: Colors.white,
-                                    size: 70,
+            child: isLoading
+                ? const Center(child: CupertinoActivityIndicator())
+                : GridView.builder(
+                    padding: const EdgeInsets.all(60),
+                    itemCount: menuItems.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 50,
+                          crossAxisSpacing: 50,
+                          childAspectRatio: 1,
+                        ),
+                    itemBuilder: (context, index) {
+                      final item = menuItems[index];
+                      final isOther = item['name'] == 'other';
+                      return Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadiusGeometry.circular(12),
+                          child: GestureDetector(
+                            onTap: () => isOther
+                                ? _routeToOther(item)
+                                : _routeToSocial(item),
+                            child: isOther
+                                ? Container(
+                                    width: 150,
+                                    height: 150,
+                                    color: Colors.amber[600],
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(
+                                          Icons.logout,
+                                          color: Colors.white,
+                                          size: 70,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Image.network(
+                                    item['iconUrl'],
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
-                              ),
-                            )
-                          : Image.network(
-                              item['iconUrl'],
-                              width: 150,
-                              height: 150,
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),
