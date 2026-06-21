@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_exam/components/socials_item.dart';
 import 'package:mobile_exam/components/socials_webpage.dart';
-import 'package:mobile_exam/helpers/getColors.dart';
+import 'package:mobile_exam/helpers/buttonHelpers.dart';
 import 'package:mobile_exam/pages/dashboard/dashboard.dart';
 
 class SocialsPage extends StatefulWidget {

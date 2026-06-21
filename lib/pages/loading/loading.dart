@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_exam/api/login/auth.api.dart';
+import 'package:mobile_exam/api/auth/auth.api.dart';
 import 'package:mobile_exam/components/custom_dialog.dart';
+import 'package:mobile_exam/pages/dashboard/dashboard.dart';
+import 'package:mobile_exam/routes.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({
     super.key,
-    required this.username,
-    required this.pin,
+    this.username = '',
+    this.pin = '',
     required this.isLoggingIn,
   });
   final bool isLoggingIn;
@@ -22,6 +24,12 @@ class LoadingPageState extends State<LoadingPage> {
   final auth = Auth();
 
   void _showError() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.login,
+      (route) => false,
+    );
+
     showDialog(
       context: context,
       builder: (context) {
@@ -33,20 +41,34 @@ class LoadingPageState extends State<LoadingPage> {
     );
   }
 
+  void _routeToDashboard(dynamic response) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => DashboardPage(user: response)),
+    );
+  }
+
   Future<void> _login() async {
     final username = widget.username;
     final pin = widget.pin;
     try {
       final response = await auth.login(username: username, pin: pin);
-      print(response);
+      _routeToDashboard(response);
     } catch (error) {
       _showError();
     }
   }
 
   Future<void> _logout() async {
-    final username = widget.username;
-    final pin = widget.pin;
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.login,
+      (route) => false,
+    );
   }
 
   @override

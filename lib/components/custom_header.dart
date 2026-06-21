@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatefulWidget {
-  const CustomHeader({super.key});
+  const CustomHeader({super.key, this.user = ''});
+  final dynamic user;
   @override
   State<CustomHeader> createState() => CustomHeaderState();
 }
@@ -9,6 +10,7 @@ class CustomHeader extends StatefulWidget {
 class CustomHeaderState extends State<CustomHeader> {
   @override
   Widget build(BuildContext context) {
+    final user = widget.user;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(24),
@@ -25,7 +27,8 @@ class CustomHeaderState extends State<CustomHeader> {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('Kratos121995'), Text('12312313231')],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(user['userName']), Text(user['userId'])],
           ),
         ],
       ),

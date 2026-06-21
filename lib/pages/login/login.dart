@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_exam/components/custom_button.dart';
 import 'package:mobile_exam/components/pin_dialog.dart';
 import 'package:mobile_exam/helpers/validators.dart';
 import 'package:mobile_exam/pages/loading/loading.dart';
@@ -120,17 +121,22 @@ class LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(
                         width: 250,
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: Colors.green[400],
-                            padding: EdgeInsets.all(20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
+                        child: CustomButton(
+                          type: 'Login',
+                          label: 'Login',
                           onPressed: isValid ? _handleSubmit : null,
-                          child: const Text('Enter'),
                         ),
+                        // child: FilledButton(
+                        //   style: FilledButton.styleFrom(
+                        //     backgroundColor: Colors.green[400],
+                        //     padding: EdgeInsets.all(20),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(4),
+                        //     ),
+                        //   ),
+                        //   onPressed: isValid ? _handleSubmit : null,
+                        //   child: const Text('Enter'),
+                        // ),
                       ),
                     ],
                   ),

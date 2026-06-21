@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Exam for Flutter',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.lightBlue)),
       routes: appRoutes,
-      initialRoute: AppRoutes.dashboard,
+      initialRoute: AppRoutes.login,
       debugShowCheckedModeBanner: false,
     );
   }

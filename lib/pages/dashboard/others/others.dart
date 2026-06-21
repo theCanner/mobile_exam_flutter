@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mobile_exam/components/custom_button.dart';
+import 'package:mobile_exam/components/custom_social_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OthersPage extends StatefulWidget {
@@ -136,7 +136,7 @@ class OthersPageState extends State<OthersPage> {
 
           const SizedBox(height: 24),
 
-          CustomButton(
+          CustomSocialButton(
             onPressed: () => __visitWeb(selectedItem['webUrl']!),
             socialName: selectedItem['name']!,
           ),

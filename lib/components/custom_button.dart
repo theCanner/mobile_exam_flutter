@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_exam/helpers/getColors.dart';
+import 'package:mobile_exam/helpers/buttonHelpers.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton({
     super.key,
-    required this.socialName,
+    required this.type,
+    required this.label,
     required this.onPressed,
   });
-  final VoidCallback onPressed;
-  final String socialName;
+  final VoidCallback? onPressed;
+  final String type;
+  final String label;
   @override
-  State<CustomButton> createState() => CustomButtonState();
+  State<CustomButton> createState() => CustomSocialButtonState();
 }
 
-class CustomButtonState extends State<CustomButton> {
+class CustomSocialButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    String socialName = widget.socialName;
+    String type = widget.type;
+    String label = widget.label;
     return SizedBox(
-      width: 250,
+      width: double.infinity,
       child: FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: getSocialColor(socialName),
+          backgroundColor: getButtonType(type),
           padding: EdgeInsets.all(20),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
         onPressed: widget.onPressed,
-        child: Text('Visit $socialName'),
+        child: Text(label, style: TextStyle(color: getButtonLabel(type))),
       ),
     );
   }

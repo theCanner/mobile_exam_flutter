@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:mobile_exam/components/custom_button.dart';
+import 'package:mobile_exam/components/custom_social_button.dart';
 
 class SocialItem extends StatefulWidget {
   const SocialItem({super.key, required this.social, required this.onPressed});
@@ -25,7 +25,10 @@ class _SocialItemState extends State<SocialItem> {
             style: TextStyle(fontSize: 16),
           ),
         ),
-        CustomButton(onPressed: widget.onPressed, socialName: item['name']),
+        CustomSocialButton(
+          onPressed: widget.onPressed,
+          socialName: item['name'],
+        ),
       ],
     );
   }
