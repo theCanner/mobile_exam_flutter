@@ -42,6 +42,7 @@ class PinDialogState extends State<PinDialog> {
               controller: pinController,
               length: 6,
               obscureText: false,
+              autofocus: true,
               showCursor: false,
               keyboardType: TextInputType.number,
               separatorBuilder: (_) => const SizedBox(width: 16),
@@ -51,13 +52,10 @@ class PinDialogState extends State<PinDialog> {
               defaultPinTheme: const PinTheme(
                 width: 20,
                 height: 35,
-                textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                textStyle: TextStyle(fontSize: 22),
                 decoration: BoxDecoration(),
               ),
-              preFilledWidget: const Text(
-                '-',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+              preFilledWidget: const Text('-', style: TextStyle(fontSize: 22)),
             ),
 
             const SizedBox(height: 32),
