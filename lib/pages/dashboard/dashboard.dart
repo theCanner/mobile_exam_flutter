@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_exam/api/dashboard/dashboard.api.dart';
 import 'package:mobile_exam/components/custom_header.dart';
+import 'package:mobile_exam/pages/dashboard/others/others.dart';
 import 'package:mobile_exam/pages/dashboard/socials/socials.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -32,6 +33,13 @@ class DashboardPageStata extends State<DashboardPage> {
     );
   }
 
+  void _routeToOther(dynamic social) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => OthersPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +52,8 @@ class DashboardPageStata extends State<DashboardPage> {
         itemCount: menuItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 60,
-          crossAxisSpacing: 60,
+          mainAxisSpacing: 50,
+          crossAxisSpacing: 50,
           childAspectRatio: 1,
         ),
         itemBuilder: (context, index) {
@@ -55,7 +63,8 @@ class DashboardPageStata extends State<DashboardPage> {
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(12),
               child: GestureDetector(
-                onTap: () => _routeToSocial(item),
+                onTap: () =>
+                    isOther ? _routeToOther(item) : _routeToSocial(item),
                 child: isOther
                     ? Container(
                         width: 150,
