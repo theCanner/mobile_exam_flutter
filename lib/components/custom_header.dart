@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatefulWidget {
-  const CustomHeader({super.key, this.user = ''});
+  const CustomHeader({super.key, this.user = '', required this.onTap});
   final dynamic user;
+  final GestureTapCallback onTap;
   @override
   State<CustomHeader> createState() => CustomHeaderState();
 }
@@ -18,11 +19,14 @@ class CustomHeaderState extends State<CustomHeader> {
         spacing: 12,
         children: [
           ClipOval(
-            child: Image.network(
-              'https://indexcodex.com/api/v1/assets/userimage.png',
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: widget.onTap,
+              child: Image.network(
+                'https://indexcodex.com/api/v1/assets/userimage.png',
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Column(
