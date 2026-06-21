@@ -21,4 +21,21 @@ class Api {
       data?['message'] ?? 'Request failed: ${response.statusCode}',
     );
   }
+
+  Future<dynamic> get(String path) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl$path'),
+      headers: {'CLIENT_ID': 'rgbexam', 'Content-Type': 'application/json'},
+    );
+
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return data;
+    }
+
+    throw Exception(
+      data?['message'] ?? 'Request failed: ${response.statusCode}',
+    );
+  }
 }
