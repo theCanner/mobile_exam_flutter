@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_exam/components/socials_item.dart';
+import 'package:mobile_exam/components/socials_webpage.dart';
 import 'package:mobile_exam/helpers/getColors.dart';
 import 'package:mobile_exam/pages/dashboard/dashboard.dart';
 
@@ -11,6 +12,7 @@ class SocialsPage extends StatefulWidget {
 }
 
 class SocialsPageState extends State<SocialsPage> {
+  bool showWebView = true;
   @override
   Widget build(BuildContext context) {
     final social = widget.social;
@@ -30,7 +32,9 @@ class SocialsPageState extends State<SocialsPage> {
           },
         ),
       ),
-      body: SocialItem(social: social),
+      body: showWebView
+          ? SocialsWebpage(url: social['webUrl'])
+          : SocialItem(social: social),
     );
   }
 }

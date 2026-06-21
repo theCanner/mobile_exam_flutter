@@ -24,7 +24,7 @@ class _SocialItemState extends State<SocialItem> {
             style: TextStyle(fontSize: 16),
           ),
         ),
-        CustomButton(socialName: item['name']),
+        CustomButton(onPressed: () => print('yes'), socialName: item['name']),
       ],
     );
   }

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mobile_exam/helpers/getColors.dart';
 
 class CustomButton extends StatefulWidget {
-  const CustomButton({super.key, required this.socialName});
+  const CustomButton({
+    super.key,
+    required this.socialName,
+    required this.onPressed,
+  });
+  final VoidCallback onPressed;
   final String socialName;
   @override
   State<CustomButton> createState() => CustomButtonState();
@@ -20,7 +25,7 @@ class CustomButtonState extends State<CustomButton> {
           padding: EdgeInsets.all(20),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
-        onPressed: () => print('yes'),
+        onPressed: widget.onPressed,
         child: Text('Visit $socialName'),
       ),
     );
