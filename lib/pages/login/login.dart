@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   bool isValid = false;
+  String? usernameError;
 
   void _handleSubmit() {
     if (isValid) {
@@ -105,6 +106,8 @@ class LoginPageState extends State<LoginPage> {
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: 'Username',
+                          errorStyle: const TextStyle(height: 0),
+                          errorText: null,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.grey,
@@ -112,13 +115,32 @@ class LoginPageState extends State<LoginPage> {
                             ),
                             borderRadius: BorderRadius.circular(4),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: usernameError == null
+                                  ? Colors.blue
+                                  : Colors.red,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
                         validator: usernameValidators,
-                        onChanged: (_) => setState(() {
-                          isValid = _formKey.currentState!.validate();
+                        onChanged: (value) => setState(() {
+                          usernameError = usernameValidators(value);
+                          isValid = usernameError == null;
                         }),
                         // autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
+                      if (usernameError != null)
+                        Text(
+                          usernameError!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
+                        ),
                       SizedBox(
                         width: 250,
                         child: CustomButton(
@@ -126,17 +148,6 @@ class LoginPageState extends State<LoginPage> {
                           label: 'Login',
                           onPressed: isValid ? _handleSubmit : null,
                         ),
-                        // child: FilledButton(
-                        //   style: FilledButton.styleFrom(
-                        //     backgroundColor: Colors.green[400],
-                        //     padding: EdgeInsets.all(20),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(4),
-                        //     ),
-                        //   ),
-                        //   onPressed: isValid ? _handleSubmit : null,
-                        //   child: const Text('Enter'),
-                        // ),
                       ),
                     ],
                   ),
