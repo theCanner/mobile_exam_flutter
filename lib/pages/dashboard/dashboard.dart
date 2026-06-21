@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_exam/api/dashboard/dashboard.api.dart';
 import 'package:mobile_exam/components/custom_header.dart';
+import 'package:mobile_exam/pages/dashboard/socials/socials.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -22,8 +23,13 @@ class DashboardPageStata extends State<DashboardPage> {
         "webUrl": "",
       });
     });
+  }
 
-    print(menuItems);
+  void _routeToSocial(dynamic social) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SocialsPage(social: social)),
+    );
   }
 
   @override
@@ -49,7 +55,7 @@ class DashboardPageStata extends State<DashboardPage> {
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(12),
               child: GestureDetector(
-                onTap: () => print('yes'),
+                onTap: () => _routeToSocial(item),
                 child: isOther
                     ? Container(
                         width: 150,
