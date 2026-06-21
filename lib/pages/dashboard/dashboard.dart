@@ -44,7 +44,7 @@ class DashboardPageStata extends State<DashboardPage> {
     );
   }
 
-  void _OpenMenu() {
+  void _openMenu() {
     setState(() {
       isLoggingOut = true;
     });
@@ -71,7 +71,7 @@ class DashboardPageStata extends State<DashboardPage> {
         preferredSize: const Size.fromHeight(100),
         child: SafeArea(
           child: GestureDetector(
-            onTap: () => _OpenMenu(),
+            onTap: () => _openMenu(),
             child: CustomHeader(user: user),
           ),
         ),
