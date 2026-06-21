@@ -2,8 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:mobile_exam/components/custom_button.dart';
 
 class SocialItem extends StatefulWidget {
-  const SocialItem({super.key, required this.social});
+  const SocialItem({super.key, required this.social, required this.onPressed});
   final dynamic social;
+  final VoidCallback onPressed;
   @override
   State<SocialItem> createState() => _SocialItemState();
 }
@@ -24,7 +25,7 @@ class _SocialItemState extends State<SocialItem> {
             style: TextStyle(fontSize: 16),
           ),
         ),
-        CustomButton(onPressed: () => print('yes'), socialName: item['name']),
+        CustomButton(onPressed: widget.onPressed, socialName: item['name']),
       ],
     );
   }

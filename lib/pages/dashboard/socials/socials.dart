@@ -12,7 +12,14 @@ class SocialsPage extends StatefulWidget {
 }
 
 class SocialsPageState extends State<SocialsPage> {
-  bool showWebView = true;
+  bool showWebView = false;
+
+  void _handleWebView() {
+    setState(() {
+      showWebView = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final social = widget.social;
@@ -34,7 +41,7 @@ class SocialsPageState extends State<SocialsPage> {
       ),
       body: showWebView
           ? SocialsWebpage(url: social['webUrl'])
-          : SocialItem(social: social),
+          : SocialItem(onPressed: _handleWebView, social: social),
     );
   }
 }
