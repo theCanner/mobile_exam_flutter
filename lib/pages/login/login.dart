@@ -104,6 +104,7 @@ class LoginPageState extends State<LoginPage> {
                       TextFormField(
                         controller: usernameController,
                         textAlign: TextAlign.center,
+                        keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Username',
                           errorStyle: const TextStyle(height: 0),
